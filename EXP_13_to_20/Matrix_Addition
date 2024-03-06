@@ -1,0 +1,40 @@
+def getmatrix():
+
+  rows = int(input("Enter the number of rows: "))
+  cols = int(input("Enter the number of columns: "))
+
+  matrix = []
+  for i in range(rows):
+    row = []
+    for j in range(cols):
+      value = float(input(f"Enter element at row {i+1}, column {j+1}: "))
+      row.append(value)
+    matrix.append(row)
+  return matrix
+
+def addm(mat1, mat2):
+
+  if len(mat1) != len(mat2) or len(mat1[0]) != len(mat2[0]):
+    raise ValueError("Matrices must have the same dimensions for addition.")
+
+  res = [[0 for _ in range(len(mat1[0]))] for _ in range(len(mat1))]
+
+  for i in range(len(mat1)):
+    for j in range(len(mat1[0])):
+      res[i][j] = mat1[i][j] + mat2[i][j]
+
+  return res
+
+print("Enter details for matrix 1:")
+mat1 = getmatrix()
+
+print("Enter details for matrix 2:")
+mat2 = getmatrix()
+
+try:
+  result = addm(mat1, mat2)
+  print("Resultant matrix:")
+  for row in result:
+    print(row)
+except ValueError as e:
+  print(e)
