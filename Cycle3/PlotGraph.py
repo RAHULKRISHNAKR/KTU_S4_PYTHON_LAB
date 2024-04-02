@@ -1,54 +1,87 @@
-'''
-1. Define the function:
+'''1. Import Libraries:
 
-Identify the mathematical relationship between y and x.
-Write a Python function f(x) that expresses this relationship. This function will take an x value as input and return the corresponding y value.
-2. Set plotting range and resolution:
+numpy: This library provides functions for numerical computations, including generating sequences of numbers.
+matplotlib.pyplot: This library offers tools for creating visualizations like plots.
+2. Define plot_graph function:
 
-Decide on the minimum (start) and maximum (end) values for the x-axis that you want to visualize in the graph.
-Choose the number of data points (num) you want to generate for the x-axis. More data points will result in a smoother curve.
-3. Generate x-axis values:
+This function takes three arguments:
+x: An array of x-axis values.
+y: An array of corresponding y-axis values.
+label: A string representing the function being plotted.
+It creates a new plot figure using plt.figure().
+It then plots the data points using plt.plot(x, y, 'r-', label=label). Here, 'r-' specifies a red continuous line.
+The function sets labels for the x and y-axis using plt.xlabel and plt.ylabel.
+It adds a title to the plot using plt.title(label).
+Legends are created using plt.legend() to differentiate between plots if multiple functions are visualized.
+A grid is added for better readability with plt.grid(True).
+Finally, the plot is displayed on the screen using plt.show().
+3. Main Program Loop:
 
-Use numpy.linspace(start, end, num) to create an array of num x-axis values that are equally spaced between start and end.
-4. Calculate corresponding y values:
+The program displays a menu offering choices for different functions to plot (y = x, y = x^2, etc.).
+It enters a loop using while True.
+Inside the loop, the user's choice is retrieved using input("Enter your choice: ").
+A series of if-elif statements handle each choice:
+If the choice is a valid number between 1 and 6:
+It defines appropriate ranges for the x-axis using np.linspace.
+It calculates the corresponding y-axis values based on the chosen function (e.g., y = x**2 for choice 2).
+The plot_graph function is called with the generated data and function label.
+If the choice is '7':
+An exit message is printed.
+The loop is broken using break.'''
 
-Iterate through the x-axis values array.
-For each x value, call the f(x) function to calculate the corresponding y value.
-Store these y values in a separate array.
-5. Create the plot using Matplotlib:
-
-Import the matplotlib.pyplot library as plt.
-Use plt.plot(x, y) to create a line plot, where x is the array of x-axis values and y is the array of corresponding y values.
-6. Customize the plot (optional):
-
-Add labels to the axes using plt.xlabel("X-axis") and plt.ylabel("Y-axis").
-Set a title for the plot using plt.title("Graph of y = f(x)").
-7. Display the plot:
-Use plt.show() to display the generated graph.
-'''
-
-
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
 
-# Define the function
-def f(x):
-  return x**2
+def plot_graph(x, y, label):
+    plt.figure()
+    plt.plot(x, y,'r-',label=label)
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title(label)
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
-# Generate x values
-x = np.linspace(-2, 2, 100)
+print("Choose a function to plot:")
+print("1. y = x")
+print("2. y = x^2")
+print("3. y = 2^x")
+print("4. y = sin(x)")
+print("5. y = cos(x)")
+print("6. y = e^x")
+print("7. Exit")
 
-# Calculate y values
-y = f(x)
 
-# Plot the graph
-plt.plot(x, y)
+while True:
 
-# Set labels and title
-plt.xlabel("X")
-plt.ylabel("Y")
-plt.title("Plot of y = x^2")
+	choice = input("Enter your choice: ")
 
-# Show the plot
-plt.grid(True)
-plt.show()
+	if choice == '1':
+		x = np.linspace(-10, 10, 400)
+		y = x
+		plot_graph(x, y, "y = x")
+	elif choice == '2':
+		x = np.linspace(-10, 10, 400)
+		y = x**2
+		plot_graph(x, y, "y = x^2")
+	elif choice == '3':
+		x = np.linspace(-2, 2, 400)
+		y = 2**x
+		plot_graph(x, y, "y = 2^x")
+	elif choice == '4':
+		x = np.linspace(-2*np.pi, 2*np.pi, 400)
+		y = np.sin(x)
+		plot_graph(x, y, "y = sin(x)")
+	elif choice == '5':
+		x = np.linspace(-2*np.pi, 2*np.pi, 400)
+		y = np.cos(x)
+		plot_graph(x, y, "y = cos(x)")
+	elif choice == '6':
+		x = np.linspace(-2, 2, 400)
+		y = np.exp(x)
+		plot_graph(x, y, "y = e^x")
+	elif choice == '7':
+		print("Exiting...")
+		break
+	else:
+		print("Invalid choice. Please enter a number between 1 and 7.")
