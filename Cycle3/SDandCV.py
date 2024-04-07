@@ -41,35 +41,28 @@ Multiply the result by 100 to express it as a percentage.
 Print the calculated standard deviation and coefficient of variation with a percentage sign using print statements
 '''
 
-import pandas as pd
+import numpy as np
 
-# Class data (assuming data is available in a list of lists)
-data = [
-    [0, 10, 5],
-    [10, 20, 10],
-    [20, 30, 20],
-    [30, 40, 40],
-    [40, 50, 30],
-    [50, 60, 20],
-    [60, 70, 10],
-    [70, 80, 5],
-]
+clas=['0-10','10-20','20-30','30-40','40-50','50-60','60-70','70-80']
+frequency=[5,10,20,40,30,20,10,5]
 
-# Create DataFrame from the data
-df = pd.DataFrame(data, columns=["Class", "Frequency", "f(x)"])
+midclass=[]
+for i in clas:
+    k=i.split('-');
+    x=(int(k[1])+int(k[0]))//2
+    midclass.append(x)
+    
+print(midclass)
 
-# Calculate mean of f(x)
-mean_f_x = df['f(x)'].mean()
+mean = np.average(midclass,weights=frequency)
 
-# Calculate squared deviations from the mean
-df['Squared Deviation'] = (df['f(x)'] - mean_f_x) ** 2
+var = np.average((midclass - mean)**2, weights=frequency)
 
-# Calculate standard deviation
-standard_deviation = df['Squared Deviation'].mean() ** 0.5
+sd = np.sqrt(var)
 
-# Calculate coefficient of variation
-coefficient_variation = (standard_deviation / mean_f_x) * 100
+cv = (sd/ mean)
 
-# Print results
-print("Standard Deviation:", standard_deviation)
-print("Coefficient of Variation (C.V.):", coefficient_variation, "%")
+print("Mean:",mean)
+print("Variance: ",var)
+print("Standard Deviation: ",sd)
+print("Coefficient Of Variation: ",cv)
