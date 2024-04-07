@@ -39,7 +39,7 @@ Print the calculated mean, median, and variance for both population and murder r
 '''
 
 import pandas as pd
-
+import numpy as np
 # Create a list of lists to store the data
 data = [
     ["Alabama", 4779736, 5.7],
@@ -52,25 +52,22 @@ data = [
     ["Delaware", 897934, 5.8],
 ]
 
-# Create a DataFrame from the data
 df = pd.DataFrame(data, columns=["State", "Population", "Murder Rate"])
 
-# Calculate mean
-mean_population = df['Population'].mean()
-mean_murder_rate = df['Murder Rate'].mean()
+murder=[]
 
-# Calculate median
-median_population = df['Population'].median()
-median_murder_rate = df['Murder Rate'].median()
+df["Murder"] = df["Population"]*df["Murder Rate"]
+#print(df["Murder"])
 
-# Calculate variance
-variance_population = df['Population'].var()
-variance_murder_rate = df['Murder Rate'].var()
+x=list(df["Murder"])
+for i in range(0,len(x)):
+    x[i] = x[i]/100000
+#print(x)
 
-# Print the results
-print("Mean Population:", mean_population)
-print("Mean Murder Rate:", mean_murder_rate)
-print("Median Population:", median_population)
-print("Median Murder Rate:", median_murder_rate)
-print("Variance Population:", variance_population)
-print("Variance Murder Rate:", variance_murder_rate)
+mean=np.mean(x)
+med=np.median(x)
+var=np.var(x)
+print("Mean: ",mean)
+print("Median: ",med)
+print("Variance: ",var)
+
