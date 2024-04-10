@@ -19,19 +19,36 @@ If the p-value is less than 0.05, we reject the null hypothesis and conclude tha
 If the p-value is greater than or equal to 0.05, we fail to reject the null hypothesis and there is not enough evidence to conclude that gender and education level are dependent..'''
 
 from scipy.stats import chi2_contingency
+import pandas as pd
 
 data = {
-  "Ed Level": ["High School", "Bachelors", "Masters", "Ph.D."],
-  "Female": [60, 54, 46, 41],
-  "Male": [40, 44, 53, 57]
+  "Ed Level": ["High School", "Bachelors", "Masters", "Ph.D.","Total"],
+  "Female": [60, 54, 46, 41,201],
+  "Male": [40, 44, 53, 57,194],
+  "Total":[100,98,99,98,395]
 }
+
+df = pd.DataFrame(data)
+
+print(df)
+print()
 
 ct = [data["Female"], data["Male"]]
 
 chi2, pval, degrees_of_freedom, expected_frequency = chi2_contingency(ct)
 
+print("Table value = 7.85\n")
+
 print("Chi-Square Statistic:", chi2)
+print()
+
+print("Expected Frequency Table")
+print(expected_frequency)
+print()
+
 print("p-value:", pval)
+print()
+
 print("Degrees of Freedom:", degrees_of_freedom)
 
 # Hypothesis Testing at 5% significance level (alpha = 0.05)
@@ -39,3 +56,4 @@ if pval < 0.05:
     print("Reject Null Hypothesis - Gender and Education Level are dependent.")
 else:
     print("Fail to Reject Null Hypothesis - Not enough evidence for dependence.")
+
